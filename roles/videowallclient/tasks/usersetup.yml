@@ -1,0 +1,22 @@
+- name: test
+  file:
+    path=/var/{{item}}/{{main_user}}
+    state=directory
+    mode=0774
+    owner={{main_user}}
+    group={{main_user}}
+  with_items:
+    - run
+    - log
+
+- lineinfile:
+    dest: /etc/sudoers
+    state: present
+    line: "{{main_user}} ALL=(ALL) ALL"
+    validate: visudo -cf %s
+
+- lineinfile:
+    dest: /etc/sudoers
+    state: present
+    line: "{{main_user}} ALL=(root) NOPASSWD:/usr/sbin/service videowallclient restart"
+    validate: visudo -cf %s

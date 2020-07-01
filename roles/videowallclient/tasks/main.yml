@@ -1,0 +1,27 @@
+- include: usersetup.yml
+
+- apt_repository:
+  repo: deb http://apt.corollarium.com stable main
+  state: present
+
+- name: Update APT package cache
+  apt: update_cache=yes
+
+- name: Install videowall client packages
+  apt:
+    pkg: ["videowallclient"]
+    state: present
+
+- name: Start at boot by Systemd
+  shell: systemctl enable videowallclient.service
+
+- name: restart Systemd
+  shell: systemctl daemon-reload
+
+- name: restart Systemd videowall
+  shell: systemctl restart videowallclient.service
+
+- monit:
+    name: videowallclient
+    state: started
+

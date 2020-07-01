@@ -1,0 +1,4 @@
+- name: restart Videowall client
+  service:
+    name: videowallclient
+    state: restarted
