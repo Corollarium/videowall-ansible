@@ -1,5 +1,7 @@
 # Corollarium Software Videowall Installer
 
+![Videowall](https://softwarevideowall.com/images/videowall-xpta-2.jpg)
+
 This repo installs [Corollarium Videowall](https://softwarevideowall.com) on a Linux system. This repo installs and configure a system for automatic updates (security Ubuntu and the Videowall software), log rotation, system monitoring, firewall, networking, etc. In the end you have a zero-manual maintenance system.
 
 This was tested on a 20.04 server installation with [Ansible](https://ansible.com) 2.9. Either the Server or Desktop Ubuntu 20.04 versions will work. Other Linux flavors might require tweaks.
@@ -10,7 +12,7 @@ If you are using Raspberry Pi for the clients, *do not run this*. Just burn the 
 
 To install and set up the basic system:
 
-1. Install Ubuntu 20.04LTS server (https://ubuntu.com/download/server) on your server with the default options.
+1. Install [Ubuntu 20.04LTS server](https://ubuntu.com/download/server) on your server with the default options.
    1. Make sure that the Ethernet cable is connected before installing.
    1. Setup a swap disk during the installation.
    1. Choose to install a SSH server during installation. No other services are required.
