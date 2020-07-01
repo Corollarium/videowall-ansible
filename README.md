@@ -26,12 +26,13 @@ Install Ansible in your installation machine.
 
 1. If you have two Ethernet ports and you are using your machine as a router, remember to make sure all that the network is connected to the first Ethernet port. Failure to do so will freeze the installation and require a reinstall.
    1. The first port is defined as the first one showing according to `ip addr`, in alphabetical order. 
-1. Edit `group_vars/all.yml` to see if the settings are sane. You should be fine with the 
+1. Edit `group_vars/all.yml` to see if the settings are sane. You should be fine with the defaults, but feel free to change.
    1. If you have only one Ethernet port or do not want to install a DNS/DHCP server, set these variables to false:
       ```yml
       dnsdhcp: false # set to true to run a dhcp server
       gateway: false # set to true to run a dhcp server
       ```
+   1. Otherwise, check the `gateway4` and `gateway6` variables to see if they match your network.
 1. Edit the `hosts` file. It should look like this, with the correct IPs (or server names if you setup DNS before) for all the video wall hosts. You can have zero servers or zero clients if you want. Add them one per line, like this:
    ```
    # hosts
