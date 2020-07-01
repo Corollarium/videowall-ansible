@@ -1,0 +1,19 @@
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    {{eth0}}:
+      dhcp4: true
+      dhcp4-overrides:
+        route-metric: 100
+    {{eth1}}:
+      addresses: [{{subnetwork}}.1/24]
+      dhcp4: false
+      dhcp6: false
+      gateway4: {{gateway4}}
+{% if gateway6 %}
+      gateway6: {{gateway6}}
+{% endif %}
+      nameservers:
+        addresses: [127.0.0.1, {{external_dns1}}, {{external_dns2}}]
+  version: 2
+

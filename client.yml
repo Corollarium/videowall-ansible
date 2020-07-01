@@ -1,0 +1,10 @@
+---
+# Playbook to deploy/update videowall nodes
+
+- hosts: client
+  remote_user: videowall
+  become: yes
+  become_method: sudo
+  roles:
+    - initial
+    - {role: videowallclient, tags: ['videowall']}

@@ -1,0 +1,48 @@
+- name: Install Dnsmasq on Server
+  apt:
+    name: dnsmasq
+    state: present
+
+- name: Disable systemd-resolved
+  systemd:
+    state: stopped
+    enabled: no 
+    name: systemd-resolved
+
+- name: get first ethernet interface
+  set_fact:
+    eth0: "{{ ansible_interfaces | difference(['lo']) | sort | first }}"
+    eth1: "{{ ansible_interfaces | difference(['lo']) | sort | last }}"
+
+- name: Set /etc/resolv.conf file on Server
+  template:
+    src: resolv.conf.j2
+    follow: no
+    dest: /etc/resolv.conf
+
+- name: Set dnsmasq.conf file on Server
+  template:
+    src: dnsmasq.conf.j2
+    dest: /etc/dnsmasq.conf
+    backup: yes
+  notify:
+    - restart dnsmasq
+
+- name: Set dhclient.conf file on Server
+  template:
+    src: dhclient.conf.j2
+    dest: /etc/dhcp/dhclient.conf
+    backup: yes
+  notify:
+    - restart dnsmasq
+
+- name: Start at boot by Systemd on Server
+  systemd:
+    enabled: yes
+    name: dnsmasq.service
+
+- name: Set firewall rules for DHCP
+  ufw: rule=allow port={{ item }} proto=udp
+  with_items:
+   - '67'
+   - '68'

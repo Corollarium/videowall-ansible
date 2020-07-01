@@ -1,0 +1,15 @@
+- name: Install ntp and ntpdate
+  apt:
+    pkg: ['ntp', 'ntpdate']
+    state: present
+  tags: ntp
+
+- name: Start the ntp service
+  service: name=ntp state=started enabled=true
+  tags: ntp
+
+- name: Configure ntp file
+  template: src=ntp.conf.j2 dest=/etc/ntp.conf
+  tags: ntp
+  notify: restart ntp
+

@@ -1,0 +1,61 @@
+- name: Fixes problems with ubuntu updates and ipv6 
+  lineinfile: 
+    dest: /etc/gai.conf 
+    line: "precedence ::ffff:0:0/96  100" 
+    state: present
+  tags: package
+
+- name: Update APT package cache
+  apt: update_cache=yes
+  tags: package
+
+- name: Install base packages
+  apt:
+    pkg: "{{ base_packages }}"
+    state: present
+  tags: package
+
+- name: Adjust APT update intervals
+  copy: src=apt_periodic dest=/etc/apt/apt.conf.d/10periodic
+  tags: package
+
+- name: Make sure unattended-upgrades only installs from $ubuntu_release-security
+  lineinfile: dest=/etc/apt/apt.conf.d/50unattended-upgrades regexp="ubuntu_release-updates" state=absent
+  tags: package
+
+- name: reboot runs unattended-upgrades
+  cron:
+    name: "unattended upgrades"
+    special_time: reboot
+    job: "/usr/bin/unattended-upgrade -d"
+
+- name: sunday runs unattended-upgrades
+  cron:
+    name: "unattended upgrades"
+    special_time: weekly
+    job: "/usr/bin/unattended-upgrade -d"
+
+# NTP
+- include: ntp.yml
+
+# @include ufw
+- include: ufw.yml
+  tags: ufw
+
+- name: Tmpreaper | Make sure tmpreaper is installed
+  apt: pkg=tmpreaper
+
+- name: Tmpreaper | Update the tmpreaper configuration (/etc/tmpreaper.conf)
+  template:
+    src: etc_tmpreaper.conf.j2
+    dest: /etc/tmpreaper.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Remove ubuntu "New release XX available" warning
+  replace:
+   dest=/etc/update-manager/release-upgrades
+   regexp='^Prompt=lts'
+   replace='Prompt=never'
+  tags: ubuntu-config

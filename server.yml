@@ -1,0 +1,12 @@
+---
+# Playbook to deploy/update videowall nodes
+
+- hosts: server
+  remote_user: videowall
+  become: yes
+  become_method: sudo
+  roles:
+    - initial
+    - {role: gateway, tags: gateway, when: gateway|default(false)|bool == true}
+    - {role: dnsdhcp, tags: dnsdhcp, when: dnsdhcp|default(false)|bool == true}
+    - {role: videowallserver, tags: ['videowall']}

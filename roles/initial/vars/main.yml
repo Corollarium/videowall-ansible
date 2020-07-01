@@ -1,0 +1,16 @@
+base_packages:
+  - bzip2
+  - cron
+  - fail2ban
+  - htop
+  - mosh
+  - util-linux # contains ionice and nice.
+  - openssh-server
+  - python-httplib2
+  - rsync
+  - screen
+  - sudo
+  - tar
+  - autossh
+  - ufw
+  - unattended-upgrades

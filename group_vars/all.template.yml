@@ -1,0 +1,12 @@
+dnsdhcp: true # set to true to run a dhcp server on the secondary network interface
+external_dns1: 1.1.1.1 # set to the DNS servers for your subnetwork
+external_dns2: 8.8.4.4
+subnetwork: '192.168.30' # the subnetwork to create. Do not add a . to the end here.
+dns_domain: "videowall" # subnetwork domain.
+gateway: true # set to true to route your subnetwork to the main network
+gateway4: 192.168.0.1 # external gateway for routing
+gateway6:  # ipv6 gateway if you have one.
+
+home: /home/videowall
+app_folder: /home/videowall/app
+main_user: videowall

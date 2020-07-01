@@ -4,9 +4,9 @@
 
 This repo installs [Corollarium Videowall](https://softwarevideowall.com) on a Linux system. This repo installs and configure a system for automatic updates (security Ubuntu and the Videowall software), log rotation, system monitoring, firewall, networking, etc. In the end you have a zero-manual maintenance system.
 
-This was tested on a 20.04 server installation with [Ansible](https://ansible.com) 2.9. Either the Server or Desktop Ubuntu 20.04 versions will work. Other Linux flavors might require tweaks.
+This was tested on a 20.04 Ubuntu Server installation with [Ansible](https://ansible.com) 2.9. Either the Server or Desktop Ubuntu 20.04 versions will work. Other Linux flavors might require tweaks.
 
-If you are using Raspberry Pi for the clients, *do not run this*. Just burn the [image provided](https://softwarevideowall.com) on the SD cards, which is already configured.
+This repo is not for the Raspberry Pi client. For Pis burn the [image provided](https://softwarevideowall.com) on the SD cards, which is already configured.
 
 ## Proposed setup
 

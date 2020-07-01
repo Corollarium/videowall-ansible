@@ -1,0 +1,14 @@
+driftfile /var/lib/ntp/drift
+
+restrict 127.0.0.1
+restrict -6 ::1
+
+server 0.debian.pool.ntp.org
+server 1.debian.pool.ntp.org
+server 2.debian.pool.ntp.org
+server 3.debian.pool.ntp.org
+
+includefile /etc/ntp/crypto/pw
+
+keys /etc/ntp/keys
+

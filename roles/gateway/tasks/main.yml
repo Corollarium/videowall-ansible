@@ -1,0 +1,66 @@
+---
+# Gateway
+
+- name: Get physical interfaces names
+  command: find /sys/class/net -type l -not -lname '*virtual*' -printf '%f\n'
+  register: physical_interfaces_cmd
+  changed_when: false
+  check_mode: false
+
+- name: get first ethernet interface
+  set_fact:
+    eth0: "{{ ansible_interfaces | difference(['lo']) | sort | first }}"
+    eth1: "{{ ansible_interfaces | difference(['lo']) | sort | last }}"
+
+- debug:
+    msg: "Setting up videowall sub network on {{eth1}} and routing on {{eth0}}"
+
+- name: Setup netplan
+  template:
+    src: 00-installer-config.yaml
+    dest: /etc/netplan/00-installer-config.yaml
+
+- name: Apply netplan
+  command: netplan apply
+
+- sysctl:
+    name: net.ipv4.ip_forward
+    value: "1"
+    sysctl_set: yes
+    state: present
+    reload: yes
+
+- sysctl:
+    name: net.ipv6.conf.default.forwarding
+    value: "1"
+    sysctl_set: yes
+    state: present
+    reload: yes
+
+- sysctl:
+    name: net.ipv6.conf.all.forwarding
+    value: "1"
+    sysctl_set: yes
+    state: present
+    reload: yes
+
+- name: set forwarding rules
+  template:
+    src: rc.local 
+    dest: /etc/rc.local
+    mode: 0777
+
+- name: Setup netplan
+  template:
+    src: 00-installer-config.yaml
+    dest: /etc/netplan/00-installer-config.yaml
+
+- name: Reload netplan
+  command: netplan apply
+
+- name: Reload UFW
+  ufw:
+    state: reloaded
+
+- name: Apply forwarding rules
+  command: /etc/rc.local

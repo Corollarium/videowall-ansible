@@ -1,0 +1,16 @@
+# Dnsmasq.conf
+
+bogus-priv
+server={{external_dns1}}
+server={{external_dns2}}
+local=/{{dns_domain}}/
+interface={{eth1}}
+listen-address=127.0.0.1
+listen-address={{subnetwork}}.1
+expand-hosts
+domain={{dns_domain}}
+# addn-hosts=/etc/hosts_videowall
+
+#DHCP
+dhcp-range={{eth1}},{{subnetwork}}.100,{{subnetwork}}.254,72h
+dhcp-host=127.0.0.1,{{subnetwork}}.1
