@@ -1,8 +1,13 @@
 - include: usersetup.yml
 
+- name: Add an apt key by id from a keyserver
+  apt_key:
+    url: http://apt.corollarium.com/archive.key
+    state: present
+
 - apt_repository:
-  repo: deb http://apt.corollarium.com stable main
-  state: present
+    repo: deb [trusted=yes] http://apt.corollarium.com/amd64 /
+    state: present
 
 - name: Update APT package cache
   apt: update_cache=yes
@@ -20,8 +25,3 @@
 
 - name: restart Systemd videowall
   shell: systemctl restart videowallserver.service
-
-- monit:
-    name: videowallserver
-    state: started
-
