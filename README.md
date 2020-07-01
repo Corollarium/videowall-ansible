@@ -8,6 +8,16 @@ This was tested on a 20.04 server installation with [Ansible](https://ansible.co
 
 If you are using Raspberry Pi for the clients, *do not run this*. Just burn the [image provided](https://softwarevideowall.com) on the SD cards, which is already configured.
 
+## Proposed setup
+
+We suggest the following setup for your video wall:
+
+![Network](./SoftwareVideowall-MiniPC-gateway.png)
+
+This makes it completely independent: you don't have to configure anything from your current network system, there's no chance of conflicts of auto-discovery and the installation is fully automatic. It requires a server with two ethernet ports. 
+
+But you can also use this script for a single port server, and handle the networking yourself.
+
 ## Basic installation
 
 To install and set up the basic system:
