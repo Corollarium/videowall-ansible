@@ -13,7 +13,7 @@
     eth1: "{{ ansible_interfaces | difference(['lo']) | sort | last }}"
 
 - debug:
-    msg: "Setting up videowall sub network on {{eth1}} and routing on {{eth0}}"
+    msg: "Setting up videowall sub network on {{eth0}} and routing on {{eth1}}"
 
 - name: Setup netplan
   template:

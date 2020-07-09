@@ -1,11 +1,11 @@
 # This is the network config written by 'subiquity'
 network:
   ethernets:
-    {{eth0}}:
+    {{eth1}}:
       dhcp4: true
       dhcp4-overrides:
         route-metric: 100
-    {{eth1}}:
+    {{eth0}}:
       addresses: [{{subnetwork}}.1/24]
       dhcp4: false
       dhcp6: false
