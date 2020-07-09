@@ -7,13 +7,13 @@
   changed_when: false
   check_mode: false
 
-- name: get first ethernet interface
-  set_fact:
-    eth0: "{{ ansible_interfaces | difference(['lo']) | sort | first }}"
-    eth1: "{{ ansible_interfaces | difference(['lo']) | sort | last }}"
+# - name: get first ethernet interface
+#   set_fact:
+#     eth0: "{{ ansible_interfaces | difference(['lo']) | sort | first }}"
+#     eth1: "{{ ansible_interfaces | difference(['lo']) | sort | last }}"
 
 - debug:
-    msg: "Setting up videowall sub network on {{eth0}} and routing on {{eth1}}"
+    msg: "Setting up videowall sub network on {{internaleth}} and routing on {{externaleth}}"
 
 - name: Setup netplan
   template:

@@ -7,6 +7,9 @@ gateway: true # set to true to route your subnetwork to the main network
 gateway4: 192.168.1.1 # external gateway for routing
 gateway6:  # ipv6 gateway if you have one.
 
+internaleth: enp1s0 # the internal network interface as shown by `ip addr`
+externaleth: enp3s0 # the external network interface as shown by `ip addr`
+
 home: /home/videowall
 app_folder: /home/videowall/app
 main_user: videowall

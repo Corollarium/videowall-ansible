@@ -9,10 +9,10 @@
     enabled: no 
     name: systemd-resolved
 
-- name: get first ethernet interface
-  set_fact:
-    eth0: "{{ ansible_interfaces | difference(['lo']) | sort | first }}"
-    eth1: "{{ ansible_interfaces | difference(['lo']) | sort | last }}"
+# - name: get first ethernet interface
+#   set_fact:
+#     eth0: "{{ ansible_interfaces | difference(['lo']) | sort | first }}"
+#     eth1: "{{ ansible_interfaces | difference(['lo']) | sort | last }}"
 
 - name: Set /etc/resolv.conf file on Server
   template:
