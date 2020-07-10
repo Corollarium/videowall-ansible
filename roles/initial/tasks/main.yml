@@ -23,6 +23,12 @@
   lineinfile: dest=/etc/apt/apt.conf.d/50unattended-upgrades regexp="ubuntu_release-updates" state=absent
   tags: package
 
+- name: Update APT package cache
+  cron:
+    name: "update cache"
+    special_time: daily
+    job: "/usr/bin/apt -y update"
+
 - name: reboot runs unattended-upgrades
   cron:
     name: "unattended upgrades"

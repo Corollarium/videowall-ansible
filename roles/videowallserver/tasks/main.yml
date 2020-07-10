@@ -17,6 +17,12 @@
     pkg: ["videowallserver"]
     state: present
 
+- name: Update videowallserver daily
+  cron:
+    name: "update videowallserver"
+    special_time: daily
+    job: "/usr/bin/apt -y install videowallserver"
+
 - name: Start at boot by Systemd
   shell: systemctl enable videowallserver.service
 
