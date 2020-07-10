@@ -26,7 +26,7 @@
     dest: /etc/dnsmasq.conf
     backup: yes
   notify:
-    - restart dnsmasq
+    - start dnsmasq
 
 - name: Set dhclient.conf file on Server
   template:
@@ -34,11 +34,12 @@
     dest: /etc/dhcp/dhclient.conf
     backup: yes
   notify:
-    - restart dnsmasq
+    - start dnsmasq
 
 - name: Start at boot by Systemd on Server
   systemd:
     enabled: yes
+    state: started
     name: dnsmasq.service
 
 - name: Set firewall rules for DHCP
@@ -46,3 +47,4 @@
   with_items:
    - '67'
    - '68'
+  notify: restart dnsmasq

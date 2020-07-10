@@ -3,6 +3,11 @@
     name: dnsmasq.service
     state: restarted    
 
+- name: start dnsmasq
+  service:
+    name: dnsmasq.service
+    state: started    
+
 - name: restart DHCPclient
   service:
     name: networking
