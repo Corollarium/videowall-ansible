@@ -34,11 +34,14 @@ To install and set up the basic system:
 
 ## Running this system 
 
-Install Ansible in your installation machine. 
+Install Ansible in your installation machine. Configure the `group_vars/all.yml` variables.
 
-1. If you have two Ethernet ports and you are using your machine as a router, remember to make sure all that the network is connected to the first Ethernet port. Failure to do so will freeze the installation and require a reinstall.
-   1. The first port is defined as the first one showing according to `ip addr`, in alphabetical order. 
-1. Edit `group_vars/all.yml` to see if the settings are sane. You should be fine with the defaults, but feel free to change.
+1. Edit `group_vars/all.yml` to see if the settings are sane. 
+   1. Fill the correct Ethernet port setup. If you have two Ethernet ports and you are using your machine as a router, remember to make sure all that the network is connected to the correct Ethernet port. Failure to do so will freeze the installation and require a reinstall.
+   ```yml
+   internaleth: enp3s0 # the internal network interface as shown by `ip addr`
+   externaleth: eno0 # the external network interface as shown by `ip addr`
+   ```
    1. If you have only one Ethernet port or do not want to install a DNS/DHCP server, set these variables to false:
       ```yml
       dnsdhcp: false # set to true to run a dhcp server
@@ -80,5 +83,4 @@ Install Ansible in your installation machine.
 1. Run the installer. It will ask for a password, provide the videowall user password created during the Linux installation.
    1. For servers: `/usr/bin/ansible-playbook server.yml -i hosts --ask-become-pass`
    1. For clients: `/usr/bin/ansible-playbook client.yml -i hosts --ask-become-pass`
-
 
