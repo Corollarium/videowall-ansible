@@ -9,13 +9,11 @@
     repo: deb [trusted=yes] http://apt.corollarium.com/amd64 /
     state: present
 
-- name: Update APT package cache
-  apt: update_cache=yes
-
 - name: Install videowall server packages
   apt:
-    pkg: ["videowallserver"]
-    state: present
+    name: videowallserver
+    state: latest
+    update_cache: yes
 
 - name: Update videowallserver daily
   cron:
