@@ -17,16 +17,22 @@
 
 - name: Update videowallserver daily
   cron:
-    name: "update videowallserver"
+    name: "update videowallserver"    
+    cron_file: 'videowallserver_daily'
+    user: 'root'
     special_time: daily
-    job: "/usr/bin/apt -y install videowallserver"
+    job: "/usr/bin/apt -y update && /usr/bin/apt -y install videowallserver"
+    state: present
 
 - name: Update videowallserver on reboot
   cron:
-    name: "update videowallserver"
+    name: "update videowallserver"    
+    cron_file: 'videowallserver_reboot'
+    user: 'root'
     special_time: reboot
-    job: "/usr/bin/apt -y install videowallserver"
-
+    job: "/usr/bin/apt -y update && /usr/bin/apt -y install videowallserver"
+    state: present
+  
 - name: Start at boot by Systemd
   shell: systemctl enable videowallserver.service
 
