@@ -32,7 +32,13 @@
     special_time: reboot
     job: "/usr/bin/apt -y update && /usr/bin/apt -y install videowallserver"
     state: present
-  
+
+- name: Adjust APT update intervals
+  copy: src=videowallserver.conf dest=/etc/systemd/system/videowallserver.service.d/local.conf
+
+- name: restart Systemd
+  shell: systemctl daemon-reload
+
 - name: Start at boot by Systemd
   shell: systemctl enable videowallserver.service
 
